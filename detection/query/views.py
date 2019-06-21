@@ -53,6 +53,8 @@ def postimg(request):
             result['status'] = 'success'
             result['message'] = [result_img]
             return JsonResponse(result)
+        else:
+            return JsonResponse({'message': 'Please wait for a moment'})
     except Exception as e:
         result['status'] = 'error'
         result['message'] = e

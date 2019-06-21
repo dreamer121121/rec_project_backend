@@ -44,10 +44,9 @@ def postimg(request):
         img = request.FILES.get('img')
         if not img.name:
             return JsonResponse({'message': 'Please upload a image'})
-        if img.name in os.listdir("/opt/rec_project/backend/detection/images/"):
-            img.name = img.name+'1'
-        else:
-            default_storage.save('/opt/rec_project/backend/detection/images/' + img.name, ContentFile(img.read()))
+        id = uuid.uuid1()
+        img.name = img.name+str(id)
+        default_storage.save('/opt/rec_project/backend/detection/images/' + img.name, ContentFile(img.read()))
         detect(img.name)
         result_img = img.name.split('.')[0] + '-result.jpg'
         if result_img in os.listdir("/opt/rec_project/backend/detection/detected_img/"):

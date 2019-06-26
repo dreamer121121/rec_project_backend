@@ -7,6 +7,7 @@ import numpy as np
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import os
+import time
 
 # Create your views here.
 
@@ -66,4 +67,4 @@ def detect(request):
     :param request:
     :return:
     '''
-    pass
+    time.sleep(2)

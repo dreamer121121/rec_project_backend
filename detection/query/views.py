@@ -47,12 +47,13 @@ def postimg(request):
         if img.name in os.listdir("/opt/rec_project/backend/detection/images/"):
             img.name = img.name+'1'
         else:
-            default_storage.save('/opt/rec_project/backend/detection/images/' + img.name, ContentFile(img.read()))
+            default_storage.save('/opt/rec_project/backend/detection/images/' + img.name, ContentFile(img.read())) #保存图片
         detect(img.name)
         result_img = img.name.split('.')[0] + '-result.jpg'
         if result_img in os.listdir("/opt/rec_project/backend/detection/detected_img/"):
             result['status'] = 'success'
             result['message'] = [result_img]
+            os.system('find /opt/rec_project/backend/detection/images/ -name "*.jpg" | xargs rm')#真实系统中不必要删除。
             return JsonResponse(result)
     except Exception as e:
         result['status'] = 'error'
